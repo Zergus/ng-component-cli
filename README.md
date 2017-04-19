@@ -51,3 +51,21 @@ In **template.html** it should insert component name as plain text:
 	new component
 </div>
 ```
+
+**test.spec.js**:
+```
+describe("<newComponent> test", function() {
+  	beforeEach(angular.mock.module('<newComponent>'));
+
+  	beforeEach(inject((_$compile_, _$rootScope_) => {
+        $compile = _$compile_;
+        $rootScope = _$rootScope_;
+	}));
+
+	it('should create component', () => {
+        let el = $compile('<new-component></new-component>')($rootScope);
+        $rootScope.$digest();
+        expect(el.html()).toMatch(/<newComponent>/i);
+    });
+});
+```
